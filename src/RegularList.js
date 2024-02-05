@@ -5,9 +5,9 @@ export const RegularList = ({
 }) => {
 	return (
 		<>
-		{items.map((item, i) => (
-			<ItemComponent key={i} {...{ [resourceName]: item }} />
-		))}
+			{items.map((item, i) => (
+				<ItemComponent key={i} {...{ [resourceName]: item }} />
+			))}
 		</>
-	)
-}
+	);
+};
