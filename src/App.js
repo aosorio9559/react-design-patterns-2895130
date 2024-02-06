@@ -1,19 +1,30 @@
-import { ResourceLoader } from './ResourceLoader';
 import { UserInfo } from "./UserInfo";
-import { ProductInfo } from "./ProductInfo";
+import { DataSource } from './DataSource';
+import axios from 'axios';
 
 function App() {
+	const getUserData = url => async () => {
+		const response = await axios.get(url);
+		return response.data;
+	};
+
+	const getLocalStorageData = key => () => {
+		return localStorage.getItem(key);
+	};
+
+	const Text = ({ message }) => <h1>{message}</h1>;
+
 	return (
 		<>
-			<ResourceLoader resourceUrl="/users/123" resourceName="user">
+			<DataSource getDataFunc={getUserData("/users/123")} resourceName="user">
 				<UserInfo />
-			</ResourceLoader>
+			</DataSource>
 
 			----
 
-			<ResourceLoader resourceUrl="/products/123" resourceName="product">
-				<ProductInfo />
-			</ResourceLoader>
+			<DataSource getDataFunc={getLocalStorageData("message")} resourceName="message">
+				<Text />
+			</DataSource>
 		</>
 	);
 }
